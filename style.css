@@ -21,15 +21,44 @@ h1 {
   align-items: center;
   justify-content: center;
 }
-.card {
+ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.flip-card-container {
   width: 117px;
   height: 146px;
+  margin: 20px;
+  perspective: 1000px;
+}
+.flip {
+  transform: rotateY(180deg);
+}
+.flip-card {
+  width: 100%;
+  height: 100%;
   background-color: #a7e9af;
   border-radius: 5px;
   border: 1px solid #99cea8;
+  position: relative;
+  transition: transform 1s;
+  transform-style: preserve-3d;
+}
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+
+  backface-visibility: hidden;
+}
+.flip-card-front {
+  transform: rotateY(180deg);
 }
 img {
   width: 100px;
