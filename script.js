@@ -3,11 +3,12 @@ let nCards = prompt("Qual o número de cartas do jogo? 4, 6, 8, 10, 12 ou 14?");
 while (nCards % 2 !== 0 || nCards < 4 || nCards > 14) {
   nCards = prompt("Qual o número de cartas do jogo? 4, 6, 8, 10, 12 ou 14?");
 }
-
+let cards = "";
 let cardlist = [];
 let cardOne, cardTwo;
 let cardSelected = [];
 let contador = 0;
+let cardDeck = false;
 
 function choseGame(nCards) {
   if (Number(nCards) === 4) {
@@ -90,7 +91,7 @@ function choseGame(nCards) {
   }
   cardList.sort(random);
   for (let i = 0; i < nCards; i++) {
-    let cards = document.querySelector("ul");
+    cards = document.querySelector("ul");
 
     cards.innerHTML += `      
         <div class="flip-card-container">
@@ -112,8 +113,10 @@ function random() {
 }
 
 function flip(element) {
-  element.classList.add("flip");
-  selectCard();
+  if (!cardDeck) {
+    element.classList.add("flip");
+    selectCard();
+  }
   endGame();
 }
 function selectCard() {
@@ -121,7 +124,6 @@ function selectCard() {
   if (cardSelected.length === 2) {
     cardOne = cardSelected[0];
     cardTwo = cardSelected[1];
-
     let cardOneImg = cardOne.querySelector("img").src;
     let cardTwoImg = cardTwo.querySelector("img").src;
     matchCards(cardOneImg, cardTwoImg);
@@ -156,6 +158,18 @@ function endGame() {
   cardFixed = document.querySelectorAll(".flip-fixed");
   if (Number(nCards) === cardFixed.length) {
     alert(`Você ganhou em ${contador} jogadas!`);
+    let restart = prompt("Quer reinicair o jogo? (sim ou não)");
+    if (restart === "sim") {
+      cards.innerHTML = "";
+      nCards = prompt(
+        "Qual o número de cartas do jogo? 4, 6, 8, 10, 12 ou 14?"
+      );
+      choseGame(nCards);
+      contador = 0;
+    }
+    if (restart === "não") {
+      cards.innerHTML = "";
+    }
   }
 }
 choseGame(nCards);
