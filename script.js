@@ -5,6 +5,9 @@ while (nCards % 2 !== 0 || nCards < 4 || nCards > 14) {
 }
 
 let cardlist = [];
+let cardOne, cardTwo;
+let cardSelected = [];
+let disable = false;
 
 function choseGame(nCards) {
   if (Number(nCards) === 4) {
@@ -103,11 +106,51 @@ function choseGame(nCards) {
       `;
   }
 }
-function flip(element) {
-  element.classList.toggle("flip");
-}
+//function to randomize cards selection
 function random() {
   return Math.random() - 0.5;
+}
+
+function flip(element) {
+  if (!disable) {
+    element.classList.add("flip");
+    selectCard();
+  }
+}
+function selectCard() {
+  cardSelected = document.querySelectorAll(".flip");
+  if (cardSelected.length === 2) {
+    cardOne = cardSelected[0];
+    cardTwo = cardSelected[1];
+
+    let cardOneImg = cardOne.querySelector("img").src;
+    let cardTwoImg = cardTwo.querySelector("img").src;
+    matchCards(cardOneImg, cardTwoImg);
+  }
+}
+function matchCards(img1, img2) {
+  if (img1 === img2) {
+    cardOne.removeAttribute("onclick");
+    cardTwo.removeAttribute("onclick");
+    cardOne.classList.add("flip-fixed");
+    cardTwo.classList.add("flip-fixed");
+    cardOne.classList.remove("flip");
+    cardTwo.classList.remove("flip");
+    cardSelected = [];
+    cardOne = cardTwo = "";
+  } else {
+    setTimeout(function () {
+      cardOne.parentNode.classList.add("shake");
+      cardTwo.parentNode.classList.add("shake");
+    }, 500);
+    setTimeout(function () {
+      cardOne.parentNode.classList.remove("shake");
+      cardTwo.parentNode.classList.remove("shake");
+      cardOne.classList.remove("flip");
+      cardTwo.classList.remove("flip");
+      cardOne = cardTwo = "";
+    }, 1000);
+  }
 }
 
 choseGame(nCards);
