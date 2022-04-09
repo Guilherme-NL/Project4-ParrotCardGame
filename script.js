@@ -7,7 +7,7 @@ while (nCards % 2 !== 0 || nCards < 4 || nCards > 14) {
 let cardlist = [];
 let cardOne, cardTwo;
 let cardSelected = [];
-let disable = false;
+let contador = 0;
 
 function choseGame(nCards) {
   if (Number(nCards) === 4) {
@@ -112,10 +112,9 @@ function random() {
 }
 
 function flip(element) {
-  if (!disable) {
-    element.classList.add("flip");
-    selectCard();
-  }
+  element.classList.add("flip");
+  selectCard();
+  endGame();
 }
 function selectCard() {
   cardSelected = document.querySelectorAll(".flip");
@@ -137,7 +136,7 @@ function matchCards(img1, img2) {
     cardOne.classList.remove("flip");
     cardTwo.classList.remove("flip");
     cardSelected = [];
-    cardOne = cardTwo = "";
+    contador += 2;
   } else {
     setTimeout(function () {
       cardOne.parentNode.classList.add("shake");
@@ -148,9 +147,15 @@ function matchCards(img1, img2) {
       cardTwo.parentNode.classList.remove("shake");
       cardOne.classList.remove("flip");
       cardTwo.classList.remove("flip");
-      cardOne = cardTwo = "";
+      cardSelected = [];
     }, 1000);
+    contador += 2;
   }
 }
-
+function endGame() {
+  cardFixed = document.querySelectorAll(".flip-fixed");
+  if (Number(nCards) === cardFixed.length) {
+    alert(`Você ganhou em ${contador} jogadas!`);
+  }
+}
 choseGame(nCards);
