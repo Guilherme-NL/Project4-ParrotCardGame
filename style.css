@@ -106,3 +106,16 @@ img {
     transform: translate(1px, -2px);
   }
 }
+.time {
+  width: 100px;
+  height: auto;
+  background-color: white;
+  border: 1px solid #99cea8;
+  font-family: "Roboto", sans-serif;
+  border-radius: 5px;
+  font-size: 30px;
+  font-weight: bold;
+  color: #75b79e;
+  text-align: center;
+  margin: 20px;
+}
