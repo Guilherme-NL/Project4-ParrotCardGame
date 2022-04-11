@@ -126,6 +126,7 @@ function flip(element) {
 function selectCard() {
   cardSelected = document.querySelectorAll(".flip");
   if (cardSelected.length === 2) {
+    cardDeck = true;
     cardOne = cardSelected[0];
     cardTwo = cardSelected[1];
     let cardOneImg = cardOne.querySelector("img").src;
@@ -141,6 +142,7 @@ function matchCards(img1, img2) {
     cardTwo.classList.add("flip-fixed");
     cardOne.classList.remove("flip");
     cardTwo.classList.remove("flip");
+    cardDeck = false;
     cardSelected = [];
     contador += 2;
   } else {
@@ -154,6 +156,7 @@ function matchCards(img1, img2) {
       cardOne.classList.remove("flip");
       cardTwo.classList.remove("flip");
       cardSelected = [];
+      cardDeck = false;
     }, 1000);
     contador += 2;
   }
@@ -171,9 +174,6 @@ function endGame() {
       choseGame(nCards);
       contador = 0;
       timerCount = 0;
-    }
-    if (restart === "não") {
-      cards.innerHTML = "";
     }
   }
 }
